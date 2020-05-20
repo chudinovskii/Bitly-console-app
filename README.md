@@ -1,6 +1,6 @@
-**Bitly url shorterer and clicks counter**
+**URL shortener (URL to Bitlink) and clicks counter**
 
-Console app for Bitly-url shortening and counting clicks of bitlinks.
+Console app for URL to Bitlink converting and counting clicks of Bitlinks.
 
 **How to install**
 
