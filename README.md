@@ -1,15 +1,29 @@
-**URL shortener (URL to Bitlink) and clicks counter**
+**URL shortener (URL to bitlink) and clicks counter console app**
 
-Console app for URL to Bitlink converting and counting clicks of Bitlinks.
+Console app for URL to bitlink converting and counting clicks of bitlinks.
 
-**How to install**
+**Installation**
 
-Python3 should be already installed. Then use pip (or pip3, if there is a conflict with Python2) to install dependencies:
+Python3 should be already installed. Then use pip to install dependencies:
 
+```
 pip install -r requirements.txt
+```
 
-It is necessary to have a Bitly Access Token. Generate it in your own Bitly account.
+**Usage**
 
+It is necessary to have a Bitly Access Token. Generate it in your own Bitly account. Then put in .env file.
+
+Create a bitlink:
+```
+$ main.py https://dvmn.org/
+Bitlink: bit.ly/3eodNLB
+```
+Count the clicks:
+```
+$ main.py bit.ly/3eodNLB
+Clicks sum: 1
+```
 **Project Goals**
 
-The code is written for educational purposes on online-course for web-developers dvmn.org.
+The code is written for educational purposes on online-course for web-developers [dvmn.org](https://dvmn.org/)
