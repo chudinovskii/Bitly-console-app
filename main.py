@@ -3,8 +3,6 @@ import requests
 import argparse
 from dotenv import load_dotenv
 
-load_dotenv()
-
 
 def create_parser():
     parser = argparse.ArgumentParser()
@@ -30,9 +28,9 @@ def shorten_link(token, link):
 
 def count_clicks(token, bitlink):
     if bitlink.startswith('https://bit.ly/'):
-        bitlink = link[8:]
-    elif link.startswith('http://bit.ly/'):
-        bitlink = link[7:]
+        bitlink = bitlink[8:]
+    elif bitlink.startswith('http://bit.ly/'):
+        bitlink = bitlink[7:]
     url = f'https://api-ssl.bitly.com/v4/bitlinks/{bitlink}/clicks/summary'
     headers = {
         'Authorization': f'Bearer {token}',
@@ -45,11 +43,14 @@ def count_clicks(token, bitlink):
     return decoded_resp["total_clicks"]
 
 
-if __name__ == "__main__":
+def main():
+    load_dotenv()
+
     bitly_token = os.getenv('BITLY_TOKEN')
     parser = create_parser()
     args = parser.parse_args()
     link = args.name
+
     if link.startswith(('bit.ly', 'https://bit.ly', 'http://bit.ly')):
         try:
             print(f'Количество кликов: {count_clicks(bitly_token, link)}')
@@ -60,3 +61,7 @@ if __name__ == "__main__":
             print(f'Битлинк: {shorten_link(bitly_token, link)}')
         except requests.exceptions.HTTPError:
             print('Вы ввели некорректную ссылку')
+
+
+if __name__ == "__main__":
+    main()
