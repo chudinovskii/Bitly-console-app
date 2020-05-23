@@ -25,7 +25,7 @@ def shorten_link(token, link):
     resp.raise_for_status()
     decoded_resp = resp.json()
 
-    return resp.ok, decoded_resp["id"]
+    return decoded_resp["id"]
 
 
 def count_clicks(token, bitlink):
@@ -42,33 +42,21 @@ def count_clicks(token, bitlink):
     resp.raise_for_status()
     decoded_resp = resp.json()
 
-    return resp.ok, decoded_resp["total_clicks"]
+    return decoded_resp["total_clicks"]
 
 
 if __name__ == "__main__":
-
     bitly_token = os.getenv('BITLY_TOKEN')
-    #link = input('Введите ссылку: ')
     parser = create_parser()
     args = parser.parse_args()
     link = args.name
-
-    if link.startswith('bit.ly/') or link.startswith('https://bit.ly/') or link.startswith('http://bit.ly/'):
+    if link.startswith(('bit.ly', 'https://bit.ly', 'http://bit.ly')):
         try:
-            status_count_clicks, clicks_sum = count_clicks(bitly_token, link)
+            print(f'Количество кликов: {count_clicks(bitly_token, link)}')
         except requests.exceptions.HTTPError:
-            status_count_clicks = False
             print('Не удалось посчитать количество кликов')
-
-        if status_count_clicks:
-            print(f'Количество кликов: {clicks_sum}')
-
     else:
         try:
-            status_shorten_link, bitlink = shorten_link(bitly_token, link)
+            print(f'Битлинк: {shorten_link(bitly_token, link)}')
         except requests.exceptions.HTTPError:
-            status = False
             print('Вы ввели некорректную ссылку')
-
-        if status_shorten_link:
-            print(f'Битлинк: {bitlink}')
